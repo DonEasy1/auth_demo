@@ -1,10 +1,25 @@
-var express = require('express');
-var mongoose = require('mongoose');
+var express = require('express'),
+	mongoose = require('mongoose'),
+	passport = require('passport'),
+	bodyParser = require('body-parser'),
+	User = require('./models/user'),
+	LocalStrategy = require('passport-local'),
+	passportLocalMongoose = require('passport-local-mongoose');
 
 mongoose.connect("mongodb://localhost:27017/auth_demo", { useNewUrlParser: true }); 
-
 var app = express();
 app.set('view engine', 'ejs');
+
+app.use(require('express-session')({
+	secret: "Rusty is the best dog.",
+	resave: false,
+	saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.get ('/', (req, res) => {
 	res.render('home');
