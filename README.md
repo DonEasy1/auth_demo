@@ -15,3 +15,7 @@
 # Auth CodeALong Part 4
 * Add Login routes
 * Add Login form
+
+# Auth CodeAlong Part 5
+* Add Logoute Route
+* Add isLoggedIn middleware
