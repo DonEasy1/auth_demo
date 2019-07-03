@@ -18,6 +18,7 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -55,21 +56,19 @@ app.post("/register", (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-	console.log('server listening');
-});
 // LOGIN ROUTES
 //render login form
-// app.get("/login", function(req, res){
-//    res.render("login"); 
-// });
+app.get("/login", function(req, res){
+   res.render("login"); 
+});
+
 //login logic
 //middleware
-// app.post("/login", passport.authenticate("local", {
-//     successRedirect: "/secret",
-//     failureRedirect: "/login"
-// }) ,function(req, res){
-// });
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/secret",
+    failureRedirect: "/login"
+}) ,function(req, res){
+});
 
 // app.get("/logout", function(req, res){
 //     req.logout();
@@ -83,3 +82,7 @@ app.listen(3000, () => {
 //     }
 //     res.redirect("/login");
 // }
+
+app.listen(3000, () => {
+	console.log('server listening');
+});

@@ -11,3 +11,7 @@
 # Auth CodeAlong Part 3
 * Add Register routes
 * Add Register form
+
+# Auth CodeALong Part 4
+* Add Login routes
+* Add Login form
